@@ -1,0 +1,6 @@
+dependencies {
+    api project(':zeus-vertx-springboot-core')
+
+    implementation "io.vertx:vertx-core"
+    implementation "io.vertx:vertx-micrometer-metrics"
+}

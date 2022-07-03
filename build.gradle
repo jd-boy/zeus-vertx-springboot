@@ -6,26 +6,39 @@ plugins {
 group = 'org.jd.zeus'
 version = '0.0.1-SNAPSHOT'
 
-repositories {
-	mavenCentral()
-}
-
 ext {
 	vertxVersion = '4.2.1'
 }
 
 subprojects {
-	apply plugin: 'java'
+	apply plugin: 'java-library'     // 加入该插件才能在 gradle 中使用 api
+	apply plugin: 'org.springframework.boot'
+	apply plugin: 'io.spring.dependency-management'
+
+	repositories {
+		mavenCentral()
+	}
+
+	jar {
+		archiveClassifier = ''
+	}
+
+	bootJar {
+		enabled = false
+	}
 
 	dependencyManagement {
 		dependencies {
 			dependency "io.vertx:vertx-core:${vertxVersion}"
 			dependency "io.vertx:vertx-web:${vertxVersion}"
 			dependency "io.vertx:vertx-web-client:${vertxVersion}"
-			dependency "io.vertx:vertx-mysql-client:${vertxVersion}"
-			dependency "io.vertx:vertx-redis-client:${vertxVersion}"
-
 			dependency "io.vertx:vertx-micrometer-metrics:${vertxVersion}"
+
+			dependency 'com.google.guava:guava:31.0.1-jre'
 		}
+	}
+
+	dependencies {
+		implementation 'org.springframework.boot:spring-boot-starter'
 	}
 }
