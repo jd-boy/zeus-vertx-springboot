@@ -32,14 +32,12 @@ import org.springframework.core.env.Environment;
 import org.springframework.core.io.ResourceLoader;
 import org.springframework.core.type.AnnotationMetadata;
 import org.springframework.core.type.filter.AnnotationTypeFilter;
-import org.springframework.stereotype.Component;
 import org.springframework.util.ClassUtils;
 import org.springframework.util.StringUtils;
 
 /**
  * @Auther jd
  */
-@Component
 public class VertxWebImportSelector implements ImportSelector, ResourceLoaderAware,
     EnvironmentAware, ApplicationListener<ContextRefreshedEvent> {
 

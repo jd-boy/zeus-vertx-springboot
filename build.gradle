@@ -3,9 +3,6 @@ plugins {
 	id 'io.spring.dependency-management' version '1.0.11.RELEASE'
 }
 
-group = 'org.jd.zeus'
-version = '0.0.1-SNAPSHOT'
-
 ext {
 	vertxVersion = '4.2.1'
 }
@@ -14,9 +11,14 @@ subprojects {
 	apply plugin: 'java-library'     // 加入该插件才能在 gradle 中使用 api
 	apply plugin: 'org.springframework.boot'
 	apply plugin: 'io.spring.dependency-management'
+	apply plugin: 'maven-publish'
 
 	repositories {
 		mavenCentral()
+	}
+
+	java {
+		withSourcesJar()
 	}
 
 	jar {
@@ -26,6 +28,9 @@ subprojects {
 	bootJar {
 		enabled = false
 	}
+
+	group = 'org.jd.zeus'
+	version = '0.0.1-SNAPSHOT'
 
 	dependencyManagement {
 		dependencies {
@@ -41,4 +46,24 @@ subprojects {
 	dependencies {
 		implementation 'org.springframework.boot:spring-boot-starter'
 	}
+
+	publishing {
+		publications {
+			maven(MavenPublication) {
+				from components.java
+				versionMapping {
+					usage('java-api') {
+						fromResolutionOf('runtimeClasspath')
+					}
+					usage('java-runtime') {
+						fromResolutionResult()
+					}
+				}
+			}
+		}
+		repositories {
+			mavenLocal()
+		}
+	}
+
 }
