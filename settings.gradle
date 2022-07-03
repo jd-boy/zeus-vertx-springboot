@@ -1,0 +1,2 @@
+rootProject.name = 'zeus-vertx-springboot'
+include 'zeus-vertx-springboot-core'
